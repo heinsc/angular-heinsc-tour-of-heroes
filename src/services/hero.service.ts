@@ -11,7 +11,7 @@ export class HeroService {
   constructor() { }
 
   getHeroes(): Observable<Hero[]> {
-    c tempHeroes = of(HEROES);
+    const tempHeroes = of(HEROES);
     return tempHeroes;
   }
 }
