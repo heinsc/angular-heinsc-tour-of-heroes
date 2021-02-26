@@ -12,14 +12,16 @@ export class HeroService {
   private heroesUrl = 'http://localhost:3000/heroes';  // URL to web api
 
   constructor(
-    private messageService: MessageService 
+    private messageService: MessageService
     , private httpClient: HttpClient
   ) { 
     this.messageService.add("HeroService initialized.");
   }
 
   getHeroes(): Observable<Hero[]> {
+    console.log("HeroService#getHeroes() entered.");
     const tempHeroes = this.httpClient.get<Hero[]>(this.heroesUrl);
+    console.log("HeroService#getHeroes() - Heroes found: " + tempHeroes);
     this.messageService.add("List of heroes requested.")
     return tempHeroes;
   }
