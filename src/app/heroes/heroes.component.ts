@@ -13,8 +13,7 @@ export class HeroesComponent implements OnInit {
 
   constructor(private heroService: HeroService) {
     this.heroes = heroService.getHeroes();
-  
-   }
+  }
 
   onSelect(hero: Hero) {
     this.selectedHero = hero;
