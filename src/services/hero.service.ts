@@ -12,7 +12,7 @@ export class HeroService {
   private heroesUrl = 'http://localhost:3000/heroes';  // URL to web api
 
   constructor(
-    private messageService: MessageService
+    private messageService: MessageService 
     , private httpClient: HttpClient
   ) { 
     this.messageService.add("HeroService initialized.");
