@@ -9,4 +9,8 @@ import { CommonModule } from '@angular/common';
     CommonModule
   ]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+  const routes: Routes = [
+    { path: 'heroes', component: HeroesComponent }
+  ];
+}
