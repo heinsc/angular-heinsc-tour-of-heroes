@@ -18,4 +18,10 @@ export class HeroService {
     this.messageService.add("List of heroes requested.")
     return tempHeroes;
   }
+
+  getHero(id): Observable<Hero> {
+    const tempHero = HEROES.find(hero => hero.id === id);
+    this.messageService.add("Single hero " + tempHero.name + " requested.");
+    return of(tempHero);
+  }
 }
