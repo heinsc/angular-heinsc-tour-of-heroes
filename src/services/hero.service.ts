@@ -9,7 +9,7 @@ import  { HttpClient} from '@angular/common/http';
   providedIn: 'root'
 })
 export class HeroService {
-  private heroesUrl = 'localhost:3000/heroes';  // URL to web api
+  private heroesUrl = 'http://localhost:3000/heroes';  // URL to web api
 
   constructor(
     private messageService: MessageService
