@@ -25,7 +25,9 @@ export class HeroService {
   }
 
   getHero(id): Observable<Hero> {
-    const tempHero = HEROES.find(hero => hero.id === id);
+    let tempHeroes: Hero[];
+    this.getHeroes().subscribe(heroes => { tempHeroes =  heroes});
+    const tempHero = tempHeroes.find(hero => hero.id === id);
     this.messageService.add("Single hero " + tempHero.name + " requested.");
     return of(tempHero);
   }
