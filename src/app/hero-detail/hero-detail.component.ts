@@ -19,13 +19,14 @@ export class HeroDetailComponent implements OnInit {
   ) {}
   @Input() hero: Hero;
 
-ngOnInit(): void {
-  this.findHeroForIdInRoute();
-}
+  ngOnInit(): void {
+    this.findHeroForIdInRoute();
+  }
 
-findHeroForIdInRoute(): void {
-  const id = +this.route.snapshot.paramMap.get('id');
-  this.heroService.getHero(id)
-    .subscribe(hero => this.hero = hero);
-}
+  findHeroForIdInRoute(): void {
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.heroService.getHero(id)
+      .subscribe(hero => this.hero = hero);
+  }
+  
 }
