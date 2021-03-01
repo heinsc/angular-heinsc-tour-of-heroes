@@ -26,11 +26,10 @@ export class HeroService {
     return tempHeroes;
   }
 
-  getHero(id): Observable<Hero> {
-    let tempHeroes: Hero[];
-    this.getHeroes().subscribe(heroes => { tempHeroes =  heroes});
-    const tempHero = tempHeroes.find(hero => hero.id === id);
-    this.messageService.add("Single hero " + tempHero.name + " requested.");
-    return of(tempHero);
+  getHero(id): Observable<Hero[]> {
+    const url = `${this.heroesUrl}/?id=${id}`;
+    const tempHeroesObservable = this.httpClient.get<Hero[]>(url);
+    console.log("HeroService#getHeroe() - Heroes found: " + tempHeroesObservable);
+    return tempHeroesObservable;
   }
 }
