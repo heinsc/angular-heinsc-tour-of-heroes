@@ -26,7 +26,7 @@ export class HeroService {
       .pipe(
         catchError(
           (error: any, caught: Observable<any>) => { 
-          	this.log(`getHeroes - error ${error}, $ {caught}`);
+          	this.log(`getHeroes - error ${error}, ${caught}`);
           	return of([]);
           }
         )
