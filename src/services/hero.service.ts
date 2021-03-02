@@ -3,14 +3,16 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Hero } from '../app/hero';
 import { MessageService } from './message.service';
-import  { HttpClient} from '@angular/common/http';
+import  { HttpClient, HttpHeaders} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HeroService {
   private heroesUrl = 'http://localhost:3000/heroes';  // URL to web api
-
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
   constructor(
     private messageService: MessageService
     , private httpClient: HttpClient
