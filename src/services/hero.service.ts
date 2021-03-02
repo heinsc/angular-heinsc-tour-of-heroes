@@ -70,7 +70,9 @@ handleError<T>(operation = "operation", result?: T): (err: any,caught: Observabl
       );
   }
   updateHero(hero: Hero) : Observable<Hero[]> { 
-    return this.httpClient.put(this.heroesUrl, hero, this.httpOptions).pipe(
+    return this.httpClient.put(
+      this.heroesUrl, hero, this.httpOptions
+    ).pipe(
       tap(paramOfTap => this.log(`updated hero id=${hero.id}, ${paramOfTap}`)),
       catchError(this.handleError<any>('updateHero'))
     );
