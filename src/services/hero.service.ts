@@ -61,7 +61,7 @@ handleError<T>(operation = "operation", result?: T): (err: any,caught: Observabl
           this.handleError<Hero[]>(
             'getHeroes()'
             , [
-              { id: 11, name: 'Error requesting heroe' }
+              { id: 11, name: 'Error requesting hero' }
             ]
           )
         )
