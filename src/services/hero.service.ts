@@ -67,7 +67,9 @@ handleError<T>(operation = "operation", result?: T): (err: any,caught: Observabl
         )
       );
   }
-
+  updateHero(hero: Hero) {
+    throw new Error('Method not implemented.');
+  }
   log(message: String) {
     this.messageService.add(`HeroService: ${message}`);
     console.log(`HeroService: ${message}`);
