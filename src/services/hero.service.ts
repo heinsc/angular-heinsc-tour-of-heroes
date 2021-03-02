@@ -25,18 +25,30 @@ export class HeroService {
       .get<Hero[]>(this.heroesUrl)
       .pipe(
         catchError(
-          (error: any, caught: Observable<any>) => { 
-          	this.log(`getHeroes - error ${error}, ${caught}`);
-          	return of([]);
-          }
+          this.handleError<Hero[]>(
+            'getHeroes()'
+            , [
+              { id: 11, name: 'Error requesting heroes (1)' },
+              { id: 12, name: 'Error requesting heroes (2)' }
+            ]
+          )
         )
       );
     this.log("getHeroes() - Heroes found: " + tempHeroes);
     this.messageService.add("List of heroes requested.")
     return tempHeroes;
   }
-handleError<T>(arg0: string,arg1: undefined[]): (err: any,caught: Observable<any>) => import("rxjs").ObservableInput<any> {
-throw new Error('Method not implemented.');
+handleError<T>(operation = "operation", result?: T): (err: any,caught: Observable<T>) => import("rxjs").ObservableInput<T> {
+  return (err: any, caught: Observable<T>) => {
+    // TODO: send the error to remote logging infrastructure
+    console.error(err); // log to console instead
+
+    // TODO: better job of transforming error for user consumption
+    this.log(`getHeroes: ${operation} failed: ${err.message}`);
+
+    // Let the app keep running by returning an empty result.
+    return of (result as T);
+  }
 }
 
   getHero(id): Observable<Hero[]> {
