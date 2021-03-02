@@ -67,7 +67,7 @@ handleError<T>(operation = "operation", result?: T): (err: any,caught: Observabl
         )
       );
   }
-  updateHero(hero: Hero)  {
+  updateHero(hero: Hero) : Observable<Hero[]> {
     throw new Error('Method not implemented.' );
   }
   log(message: String) {
