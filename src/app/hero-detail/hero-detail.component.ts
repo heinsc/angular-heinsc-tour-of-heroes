@@ -41,6 +41,7 @@ export class HeroDetailComponent implements OnInit {
       .subscribe((result) => {
         alert(`${result} updated.`);
         this.goBack()
+        
       });
 
   }
