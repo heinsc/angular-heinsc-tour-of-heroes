@@ -54,9 +54,18 @@ handleError<T>(operation = "operation", result?: T): (err: any,caught: Observabl
 
   getHero(id): Observable<Hero[]> {
     const url = `${this.heroesUrl}/?id=${id}`;
-    const tempHeroesObservable = this.httpClient.get<Hero[]>(url);
-    this.log("getHeroe() - Heroes found: " + tempHeroesObservable);
-    return tempHeroesObservable;
+    return this.httpClient.get<Hero[]>(url)      
+    .pipe(
+        tap(paramOfTap => this.log(`heroe fetched - ${paramOfTap}` ))
+        ,catchError(
+          this.handleError<Hero[]>(
+            'getHeroes()'
+            , [
+              { id: 11, name: 'Error requesting heroe' }
+            ]
+          )
+        )
+      );
   }
 
   log(message: String) {
