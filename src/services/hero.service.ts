@@ -68,7 +68,10 @@ handleError<T>(operation = "operation", result?: T): (err: any,caught: Observabl
       );
   }
   updateHero(hero: Hero) : Observable<Hero[]> { 
-    throw new Error('Method not implemented.' );
+  return this.http.put(this.heroesUrl, hero, this.httpOptions).pipe(
+    tap(_ => this.log(`updated hero id=${hero.id}`)),
+    catchError(this.handleError<any>('updateHero'))
+  );
   }
   log(message: String) {
     this.messageService.add(`HeroService: ${message}`);
