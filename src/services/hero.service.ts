@@ -19,9 +19,9 @@ export class HeroService {
   }
 
   getHeroes(): Observable<Hero[]> {
-    console.log("HeroService#getHeroes() entered.");
+    this.log("getHeroes() entered.");
     const tempHeroes = this.httpClient.get<Hero[]>(this.heroesUrl);
-    console.log("HeroService#getHeroes() - Heroes found: " + tempHeroes);
+    this.log("getHeroes() - Heroes found: " + tempHeroes);
     this.messageService.add("List of heroes requested.")
     return tempHeroes;
   }
@@ -29,7 +29,13 @@ export class HeroService {
   getHero(id): Observable<Hero[]> {
     const url = `${this.heroesUrl}/?id=${id}`;
     const tempHeroesObservable = this.httpClient.get<Hero[]>(url);
-    console.log("HeroService#getHeroe() - Heroes found: " + tempHeroesObservable);
+    this.log("getHeroe() - Heroes found: " + tempHeroesObservable);
     return tempHeroesObservable;
+  }
+
+  log(message: String) {
+    this.messageService.add(`HeroService: ${message}`);
+    console.log(`HeroService: ${message}`);
+    
   }
 }
