@@ -41,7 +41,9 @@ export class HeroService {
     this.messageService.add("List of heroes requested.")
     return tempHeroes;
   }
-handleError<T>(operation = "operation", result?: T): (err: any,caught: Observable<T>) => import("rxjs").ObservableInput<T> {
+handleError<T>(operation = "operation", result?: T)
+  : (err: any,caught: Observable<T>) => import("rxjs")      .ObservableInput<T>
+{
   return (err: any, caught: Observable<T>) => {
     // TODO: send the error to remote logging infrastructure
     console.error(err); // log to console instead
@@ -73,8 +75,10 @@ handleError<T>(operation = "operation", result?: T): (err: any,caught: Observabl
     return this.httpClient.put(
       this.heroesUrl, hero, this.httpOptions
     ).pipe(
-      tap(paramOfTap => this.log(`updated hero id=${hero.id}, ${paramOfTap}`)),
-      catchError(this.handleError<any>('updateHero'))
+      tap(
+        paramOfTap => this.log(`updated hero id=${hero.id}
+        , ${paramOfTap}`)
+      ),  catchError(this.handleError<any>('updateHero'))
     );
   }
   log(message: String) {
