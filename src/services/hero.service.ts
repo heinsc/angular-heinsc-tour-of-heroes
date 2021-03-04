@@ -46,7 +46,7 @@ handleError<T>(operation = "operation", result?: T)
 {
   return (err: any, caught: Observable<T>) => {
     // TODO: send the error to remote logging infrastructure
-    console.error(err); // log to console instead
+    console.error(`Error: ${err}, Caught: ${caught}`); // log to console instead
 
     // TODO: better job of transforming error for user consumption
     this.log(`getHeroes: ${operation} failed: ${err.message}`);
