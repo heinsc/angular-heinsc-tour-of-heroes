@@ -72,6 +72,7 @@ handleError<T>(operation = "operation", result?: T)
       );
   }
   updateHero(hero: Hero) : Observable<Hero[]> { 
+    
     return this.httpClient.put(
       this.heroesUrl + '/', hero, this.httpOptions
     ).pipe(
