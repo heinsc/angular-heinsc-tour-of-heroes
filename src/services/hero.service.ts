@@ -1,16 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
 import { Hero } from '../app/hero';
-import { HEROES } from '../app/mock-heroes';
 import { MessageService } from './message.service';
-import  { HttpClient} from '@angular/common/http';
+import  { HttpClient, HttpHeaders} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HeroService {
   private heroesUrl = 'http://localhost:3000/heroes';  // URL to web api
-
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
   constructor(
     private messageService: MessageService
     , private httpClient: HttpClient
@@ -19,18 +21,70 @@ export class HeroService {
   }
 
   getHeroes(): Observable<Hero[]> {
-    console.log("HeroService#getHeroes() entered.");
-    const tempHeroes = this.httpClient.get<Hero[]>(this.heroesUrl);
-    console.log("HeroService#getHeroes() - Heroes found: " + tempHeroes);
+    this.log("getHeroes() entered.");
+    const tempHeroes = this
+      .httpClient
+      .get<Hero[]>(this.heroesUrl)
+      .pipe(
+        tap(paramOfTap => this.log(`heroes fetched - ${paramOfTap}` ))
+        ,catchError(
+          this.handleError<Hero[]>(
+            'getHeroes()'
+            , [
+              { id: 11, name: 'Error requesting heroes (1)' },
+              { id: 12, name: 'Error requesting heroes (2)' }
+            ]
+          )
+        )
+      );
+    this.log("getHeroes() - Heroes found: " + tempHeroes);
     this.messageService.add("List of heroes requested.")
     return tempHeroes;
   }
+handleError<T>(operation = "operation", result?: T)
+  : (err: any,caught: Observable<T>) => import("rxjs")      .ObservableInput<T>
+{
+  return (err: any, caught: Observable<T>) => {
+    // TODO: send the error to remote logging infrastructure
+    console.error(`Error: ${err}, Caught: ${caught}`); // log to console instead
 
-  getHero(id): Observable<Hero> {
-    let tempHeroes: Hero[];
-    this.getHeroes().subscribe(heroes => { tempHeroes =  heroes});
-    const tempHero = tempHeroes.find(hero => hero.id === id);
-    this.messageService.add("Single hero " + tempHero.name + " requested.");
-    return of(tempHero);
+    // TODO: better job of transforming error for user consumption
+    this.log(`getHeroes: ${operation} failed: ${err.message}`);
+
+    // Let the app keep running by returning an empty result.
+    return of (result as T);
+  }
+}
+
+  getHero(id): Observable<Hero[]> {
+    const url = `${this.heroesUrl}/?id=${id}`;
+    return this.httpClient.get<Hero[]>(url)      
+    .pipe(
+        tap(paramOfTap => this.log(`heroe fetched - ${paramOfTap}` ))
+        ,catchError(
+          this.handleError<Hero[]>(
+            'getHeroes()'
+            , [
+              { id: 11, name: 'Error requesting hero' }
+            ]
+          )
+        )
+      );
+  }
+  updateHero(hero: Hero) : Observable<Hero[]> { 
+    const localHeroesURL = this.heroesUrl + `/${hero.id}`;
+    return this.httpClient.put(
+      localHeroesURL, hero, this.httpOptions
+    ).pipe(
+      tap(
+        paramOfTap => this.log(`updated hero id=${hero.id}
+        , ${paramOfTap}`)
+      ),  catchError(this.handleError<any>('updateHero'))
+    );
+  }
+  log(message: String) {
+    this.messageService.add(`HeroService: ${message}`);
+    console.log(`HeroService: ${message}`);
+    
   }
 }

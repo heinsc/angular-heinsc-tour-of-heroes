@@ -18,7 +18,8 @@ export class HeroesComponent implements OnInit {
 
   findHeroes() : void {
     this.heroService.getHeroes().subscribe(heroes => {this.heroes = heroes});
-  }
+      console.log("HeroesComponent#findHeroes(), found heroes = " + this.heroes);
+}
   ngOnInit() {
     this.findHeroes();
   }
