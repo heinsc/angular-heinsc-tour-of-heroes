@@ -72,7 +72,7 @@ handleError<T>(operation = "operation", result?: T)
       );
   }
   updateHero(hero: Hero) : Observable<Hero[]> { 
-    const localHeroesURL = this.heroesUrl + "/";
+    const localHeroesURL = this.heroesUrl + `/${hero.id}`;
     return this.httpClient.put(
       localHeroesURL, hero, this.httpOptions
     ).pipe(
