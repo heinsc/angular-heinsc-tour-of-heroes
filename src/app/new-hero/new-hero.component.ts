@@ -9,7 +9,7 @@ import { Hero } from '../hero';
 })
 export class NewHeroComponent implements OnInit {
 
-  constructor(heroService: HeroService) { }
+  constructor(private heroService: HeroService) { }
   
   add(name: string): void {
   name = name.trim();
