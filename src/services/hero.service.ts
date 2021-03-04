@@ -73,7 +73,7 @@ handleError<T>(operation = "operation", result?: T)
   }
   updateHero(hero: Hero) : Observable<Hero[]> { 
     return this.httpClient.put(
-      this.heroesUrl, hero, this.httpOptions
+      this.heroesUrl + '/', hero, this.httpOptions
     ).pipe(
       tap(
         paramOfTap => this.log(`updated hero id=${hero.id}
