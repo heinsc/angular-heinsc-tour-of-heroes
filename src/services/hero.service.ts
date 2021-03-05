@@ -83,7 +83,7 @@ handleError<T>(operation = "operation", result?: T)
       ),  catchError(this.handleError<any>('updateHero'))
     );
   }
-  addHero(hero: Hero) {
+  addHero(hero: Hero) : Observable <Hero[]>{
     this.httpClient.post(this.heroesUrl, hero, this.httpOptions)
     .pipe(
       tap(
