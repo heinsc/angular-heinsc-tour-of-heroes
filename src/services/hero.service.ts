@@ -77,10 +77,22 @@ handleError<T>(operation = "operation", result?: T)
       localHeroesURL, hero, this.httpOptions
     ).pipe(
       tap(
-        paramOfTap => this.log(`updated hero id=${hero.id}
-        , ${paramOfTap}`)
+        paramOfTap => this.log(
+          `updated hero id=${hero.id}, ${paramOfTap}`
+        )
       ),  catchError(this.handleError<any>('updateHero'))
     );
+  }
+  addHero(hero: Hero) {
+    this.httpClient.post(this.heroesUrl, hero, this.httpOptions)
+    .pipe(
+      tap(
+        paramOfTap => this.log(
+          `inserted hero id=${hero.id}, ${paramOfTap}`
+        )
+      ), catchError(this.handleError<any>('insertHero'))
+    )
+    throw new Error('Method not implemented.');
   }
   log(message: String) {
     this.messageService.add(`HeroService: ${message}`);
