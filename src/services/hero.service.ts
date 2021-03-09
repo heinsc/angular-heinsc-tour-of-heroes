@@ -84,8 +84,11 @@ handleError<T>(operation = "operation", result?: T)
     );
   }
   addHero(hero: Hero) : Observable <Hero[]>{
-    this.httpClient.post(this.heroesUrl, hero, this.httpOptions)
-    .pipe(
+    return this.httpClient.post(
+      this.heroesUrl
+      , hero
+      , this.httpOptions
+    ).pipe(
       tap(
         paramOfTap => this.log(
           `inserted hero id=${hero.id}, ${paramOfTap}`
