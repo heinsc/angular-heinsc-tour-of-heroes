@@ -22,9 +22,9 @@ export class HeroesComponent implements OnInit {
   }
   deleteHero(hero : Hero) : void {
     this.heroes = this.heroes.filter(h => h !== hero);
-    this.heroService.delete(hero)
-    .subscribe(hero => {
-      alert(`Hero ${hero.name} deleted.`);
+    this.heroService.removeHero(hero)
+    .subscribe(heroes => {
+      alert(`Hero ${heroes[0].name} deleted.`);
     });
 
   }
