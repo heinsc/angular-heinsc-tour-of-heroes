@@ -23,7 +23,7 @@ export class HeroesComponent implements OnInit {
   deleteHero(hero : Hero) : void {
     return this.heroService.delete(hero)
      .subscribe(hero => {
-        alert(`Hero ${hero} deleted.`);
+        alert(`Hero ${hero.name} deleted.`);
   
     }
   ngOnInit() {
