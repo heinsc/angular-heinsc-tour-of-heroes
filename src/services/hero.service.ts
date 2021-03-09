@@ -22,7 +22,9 @@ export class HeroService {
 
   getHeroes(): Observable<Hero[]> {
     this.log("getHeroes() entered.");
-    const tempHeroes = this.httpClient.get<Hero[]>(this.heroesUrl).pipe(
+    const tempHeroes = this.httpClient.get<Hero[]>(//
+      this.heroesUrl//
+    ).pipe(
       tap(paramOfTap => this.log(`heroes fetched - ${paramOfTap}`)),
       catchError(
         this.handleError<Hero[]>("getHeroes()", [
