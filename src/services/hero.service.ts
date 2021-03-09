@@ -114,6 +114,26 @@ export class HeroService {
       )//
     );
   }
+  /* GET heroes whose name contains search term */
+  findHeroesByName(searchString: string): Observable<Hero[]> {
+    if (!searchString.trim()) {
+      // if not search term, return empty hero array.
+      return of([]);
+    }
+    const localUrl = ` ${this.heroesUrl}/?name=${searchString}`
+    return this.httpClient.get<Hero[]>(//
+      localUrl//
+    ).pipe(
+      tap(//
+        resultList => {//
+          resultList.length//
+          ? this.log(`found heroes matching "${searchString}"`)//
+          : this.log(`no heroes matching "${searchString}"`)//
+        }//
+        , catchError(this.handleError<Hero[]>('searchHeroes', []))
+      )
+    );
+  }
   log(message: String) {
     this.messageService.add(`HeroService: ${message}`);
     console.log(`HeroService: ${message}`);
