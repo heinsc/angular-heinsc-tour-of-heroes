@@ -20,6 +20,9 @@ export class HeroesComponent implements OnInit {
     this.heroService.getHeroes().subscribe(heroes => {this.heroes = heroes});
       console.log("HeroesComponent#findHeroes(), found heroes = " + this.heroes);
   }
+  deleteHero(hero : Hero) : Observable<Hero> {
+    return this.heroService.delete(hero).
+  }
   ngOnInit() {
     this.findHeroes();
   }
