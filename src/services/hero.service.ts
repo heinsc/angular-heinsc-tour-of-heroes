@@ -92,7 +92,6 @@ handleError<T>(operation = "operation", result?: T)
         )
       ), catchError(this.handleError<any>('insertHero'))
     )
-    throw new Error('Method not implemented.');
   }
   log(message: String) {
     this.messageService.add(`HeroService: ${message}`);
