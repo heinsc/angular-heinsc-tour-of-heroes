@@ -20,14 +20,11 @@ export class HeroesComponent implements OnInit {
     this.heroService.getHeroes().subscribe(heroes => {this.heroes = heroes});
       console.log("HeroesComponent#findHeroes(), found heroes = " + this.heroes);
   }
-  deleteHero(hero : Hero) : Observable<Hero> {
-    return this.heroService.delete(hero).
+  deleteHero(hero : Hero) : void {
+    return this.heroService.delete(hero)
+     .subscribe(hero => {
+        alert(`Hero ${hero} deleted.`);
   
-    name = name.trim();
-    if (!name) { return; }
-    this.heroService.addHero({ name } as Hero)
-      .subscribe(hero => {
-        alert(`Hero ${name} added.`);
     }
   ngOnInit() {
     this.findHeroes();
