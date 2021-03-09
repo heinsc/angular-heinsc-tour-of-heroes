@@ -54,11 +54,14 @@ export class HeroService {
   getHero(id): Observable<Hero[]> {
     const url = `${this.heroesUrl}/?id=${id}`;
     return this.httpClient.get<Hero[]>(url).pipe(
-      tap(paramOfTap => this.log(`heroe fetched - ${paramOfTap}`)),
-      catchError(
-        this.handleError<Hero[]>("getHeroes()", [
-          { id: 11, name: "Error requesting hero" }
-        ])
+      tap(//
+        paramOfTap => this.log(`heroe fetched - ${paramOfTap}`)//
+      ), catchError(//
+          this.handleError<Hero[]>("getHeroes()"//
+          , [//
+              { id: 11, name: "Error requesting hero" }//
+          ]
+        )
       )
     );
   }
