@@ -16,7 +16,7 @@ export class NewHeroComponent implements OnInit {
     if (!name) { return; }
     this.heroService.addHero({ name } as Hero)
       .subscribe(hero => {
-        alert(`Hero ${hero.name} added.`);
+        alert(`Hero ${name} added.`);
     });
 }
 
