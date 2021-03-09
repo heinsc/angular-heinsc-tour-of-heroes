@@ -104,11 +104,13 @@ export class HeroService {
     const localHeroesURL = this.heroesUrl + `/${hero.id}`;
     return this.httpClient.delete<Hero[]>(//
       localHeroesURL//
+      , this.httpOptions//
     ).pipe(//
       tap(//
         paramOfTap => this.log(//
           `deleted hero id=${hero.id}, ${hero.name}, ${paramOfTap}`//
         )//
+        , catchError(this.handleError<any>("deleteHero"))//
       )//
     );
   }
