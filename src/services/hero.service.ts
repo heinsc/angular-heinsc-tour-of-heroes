@@ -91,12 +91,25 @@ export class HeroService {
     return this.httpClient.post(//
       this.heroesUrl//
       , hero//
-      , this.httpOptions).pipe(//
+      , this.httpOptions//
+    ).pipe(//
         tap(paramOfTap => this.log(//
           `inserted hero id=${hero.id}, ${paramOfTap}`//
         )//
       )//
       , catchError(this.handleError<any>("insertHero"))
+    );
+  }
+  removeHero(hero: Hero): Observable<Hero[]> {
+    const localHeroesURL = this.heroesUrl + `/${hero.id}`;
+    return this.httpClient.delete<Hero[]>(//
+      localHeroesURL//
+    ).pipe(//
+      tap(//
+        paramOfTap => this.log(//
+          `deleted hero id=${hero.id}, ${hero.name}, ${paramOfTap}`//
+        )//
+      )//
     );
   }
   log(message: String) {
