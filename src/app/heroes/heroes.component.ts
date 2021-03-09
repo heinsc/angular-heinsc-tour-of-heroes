@@ -21,7 +21,8 @@ export class HeroesComponent implements OnInit {
       console.log("HeroesComponent#findHeroes(), found heroes = " + this.heroes);
   }
   deleteHero(hero : Hero) : void {
-    return this.heroService.delete(hero)
+    this.heroes = this.heroes.filter(h => h !== hero);
+    this.heroService.delete(hero)
     .subscribe(hero => {
       alert(`Hero ${hero.name} deleted.`);
     });
