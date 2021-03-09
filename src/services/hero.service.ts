@@ -25,12 +25,17 @@ export class HeroService {
     const tempHeroes = this.httpClient.get<Hero[]>(//
       this.heroesUrl//
     ).pipe(
-      tap(paramOfTap => this.log(`heroes fetched - ${paramOfTap}`)),
-      catchError(
-        this.handleError<Hero[]>("getHeroes()", [
-          { id: 11, name: "Error requesting heroes (1)" },
-          { id: 12, name: "Error requesting heroes (2)" }
-        ])
+      tap(//
+        paramOfTap => this.log(`heroes fetched - ${paramOfTap}`)//
+      )//
+      , catchError(
+        this.handleError<Hero[]>(//
+          "getHeroes()"//
+          , [//
+            { id: 11, name: "Error requesting heroes (1)" }//
+            , { id: 12, name: "Error requesting heroes (2)" }//
+          ]//
+        )
       )
     );
     this.log("getHeroes() - Heroes found: " + tempHeroes);
