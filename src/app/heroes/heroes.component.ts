@@ -22,7 +22,13 @@ export class HeroesComponent implements OnInit {
   }
   deleteHero(hero : Hero) : Observable<Hero> {
     return this.heroService.delete(hero).
-  }
+  
+    name = name.trim();
+    if (!name) { return; }
+    this.heroService.addHero({ name } as Hero)
+      .subscribe(hero => {
+        alert(`Hero ${name} added.`);
+    }
   ngOnInit() {
     this.findHeroes();
   }
